@@ -494,6 +494,46 @@
     <hop>
       <from>Entrada Tabla</from>
       <to>Salida Tabla</to>
+      <enabled>N</enabled>
+    </hop>
+    <hop>
+      <from>Mapeo de Valores 2</from>
+      <to>Salida Tabla 2</to>
+      <enabled>N</enabled>
+    </hop>
+    <hop>
+      <from>Generacion idDistricto</from>
+      <to>Generacion idTipoDelito</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Generacion idDiaSemana</from>
+      <to>Generacion idDistricto</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Generacion idTipoDelito</from>
+      <to>Mapeo de Valores 2</to>
+      <enabled>N</enabled>
+    </hop>
+    <hop>
+      <from>Entrada Tabla</from>
+      <to>Generacion idDiaSemana</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Generacion idDiaSemana</from>
+      <to>Salida Tabla</to>
+      <enabled>N</enabled>
+    </hop>
+    <hop>
+      <from>Generacion idDistricto</from>
+      <to>Salida Tabla</to>
+      <enabled>N</enabled>
+    </hop>
+    <hop>
+      <from>Generacion idTipoDelito</from>
+      <to>Salida Tabla</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -509,20 +549,16 @@
       <schema_name />
     </partitioning>
     <connection>Boston</connection>
-    <sql>Select idTipoDelito,
+    <sql>
+                                
+Select  TipoDelito,
 		idFecha,
-		iddistricto,
-		idhora,
-		idDiaSemana,
+		districto,
+		hora+1 idhora,
+		DiaSemana,
 		delito
-from DelitoTemporal INNER JOIN FechaLookup ON  DATE_FORMAT(DelitoTemporal.fecha, '%d/%m/%y') = FechaLookup.Fecha 
-					INNER JOIN HoraLookup  ON DelitoTemporal.hora = HoraLookup.hora
-					INNER JOIN TipoDeDelitoLookup ON DelitoTemporal.TipoDelito = TipoDeDelitoLookup.TipoDelito  
-                    INNER JOIN DistrictoLookup ON DelitoTemporal.DISTRICTO = DistrictoLookup.DISTRICTO
-                    INNER JOIN DiaSemanaLookup ON DelitoTemporal.diasemana = DiaSemanaLookup.diasemana
-where DelitoTemporal.districto is not null
-	  
-                      </sql>
+from DelitoTemporal INNER JOIN FechaLookup  ON  DATE_FORMAT(DelitoTemporal.fecha, '%d/%m/%y') = FechaLookup.fecha 
+where DelitoTemporal.districto is not null</sql>
     <limit>0</limit>
     <lookup />
     <execute_each_row>N</execute_each_row>
@@ -536,8 +572,500 @@ where DelitoTemporal.districto is not null
       </output>
     </remotesteps>
     <GUI>
-      <xloc>160</xloc>
-      <yloc>96</yloc>
+      <xloc>128</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Generacion idDiaSemana</name>
+    <type>ValueMapper</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <field_to_use>DiaSemana</field_to_use>
+    <target_field>idDiaSemana</target_field>
+    <non_match_default />
+    <fields>
+      <field>
+        <source_value>Friday</source_value>
+        <target_value>1</target_value>
+      </field>
+      <field>
+        <source_value>Monday</source_value>
+        <target_value>2</target_value>
+      </field>
+      <field>
+        <source_value>Saturday</source_value>
+        <target_value>3</target_value>
+      </field>
+      <field>
+        <source_value>Sunday</source_value>
+        <target_value>4</target_value>
+      </field>
+      <field>
+        <source_value>Thursday</source_value>
+        <target_value>5</target_value>
+      </field>
+      <field>
+        <source_value>Tuesday</source_value>
+        <target_value>6</target_value>
+      </field>
+      <field>
+        <source_value>Wednesday</source_value>
+        <target_value>7</target_value>
+      </field>
+    </fields>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>240</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Generacion idDistricto</name>
+    <type>ValueMapper</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <field_to_use>districto</field_to_use>
+    <target_field>iddistricto</target_field>
+    <non_match_default />
+    <fields>
+      <field>
+        <source_value>A1</source_value>
+        <target_value>1</target_value>
+      </field>
+      <field>
+        <source_value>A15</source_value>
+        <target_value>2</target_value>
+      </field>
+      <field>
+        <source_value>A7</source_value>
+        <target_value>3</target_value>
+      </field>
+      <field>
+        <source_value>B2</source_value>
+        <target_value>4</target_value>
+      </field>
+      <field>
+        <source_value>B3</source_value>
+        <target_value>5</target_value>
+      </field>
+      <field>
+        <source_value>C11</source_value>
+        <target_value>6</target_value>
+      </field>
+      <field>
+        <source_value>C6</source_value>
+        <target_value>7</target_value>
+      </field>
+      <field>
+        <source_value>D14</source_value>
+        <target_value>8</target_value>
+      </field>
+      <field>
+        <source_value>D4</source_value>
+        <target_value>9</target_value>
+      </field>
+      <field>
+        <source_value>E13</source_value>
+        <target_value>10</target_value>
+      </field>
+      <field>
+        <source_value>E18</source_value>
+        <target_value>11</target_value>
+      </field>
+      <field>
+        <source_value>E5</source_value>
+        <target_value>12</target_value>
+      </field>
+    </fields>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>496</xloc>
+      <yloc>336</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Generacion idTipoDelito</name>
+    <type>ValueMapper</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <field_to_use>TipoDelito</field_to_use>
+    <target_field>idtipodelito</target_field>
+    <non_match_default />
+    <fields>
+      <field>
+        <source_value>Aggravated Assault</source_value>
+        <target_value>1</target_value>
+      </field>
+      <field>
+        <source_value>Aircraft</source_value>
+        <target_value>2</target_value>
+      </field>
+      <field>
+        <source_value>Arson</source_value>
+        <target_value>3</target_value>
+      </field>
+      <field>
+        <source_value>Assembly or Gathering Violations</source_value>
+        <target_value>4</target_value>
+      </field>
+      <field>
+        <source_value>Auto Theft</source_value>
+        <target_value>5</target_value>
+      </field>
+      <field>
+        <source_value>Auto Theft Recovery</source_value>
+        <target_value>6</target_value>
+      </field>
+      <field>
+        <source_value>Ballistics</source_value>
+        <target_value>7</target_value>
+      </field>
+      <field>
+        <source_value>Biological Threat</source_value>
+        <target_value>8</target_value>
+      </field>
+      <field>
+        <source_value>Bomb Hoax</source_value>
+        <target_value>9</target_value>
+      </field>
+      <field>
+        <source_value>Burglary - No Property Taken</source_value>
+        <target_value>10</target_value>
+      </field>
+      <field>
+        <source_value>Commercial Burglary</source_value>
+        <target_value>11</target_value>
+      </field>
+      <field>
+        <source_value>Confidence Games</source_value>
+        <target_value>12</target_value>
+      </field>
+      <field>
+        <source_value>Counterfeiting</source_value>
+        <target_value>13</target_value>
+      </field>
+      <field>
+        <source_value>Criminal Harassment</source_value>
+        <target_value>14</target_value>
+      </field>
+      <field>
+        <source_value>Disorderly Conduct</source_value>
+        <target_value>15</target_value>
+      </field>
+      <field>
+        <source_value>Drug Violation</source_value>
+        <target_value>16</target_value>
+      </field>
+      <field>
+        <source_value>Embezzlement</source_value>
+        <target_value>17</target_value>
+      </field>
+      <field>
+        <source_value>Evading Fare</source_value>
+        <target_value>18</target_value>
+      </field>
+      <field>
+        <source_value>Explosives</source_value>
+        <target_value>19</target_value>
+      </field>
+      <field>
+        <source_value>Fire Related Reports</source_value>
+        <target_value>20</target_value>
+      </field>
+      <field>
+        <source_value>Firearm Discovery</source_value>
+        <target_value>21</target_value>
+      </field>
+      <field>
+        <source_value>Firearm Violations</source_value>
+        <target_value>22</target_value>
+      </field>
+      <field>
+        <source_value>Fraud</source_value>
+        <target_value>23</target_value>
+      </field>
+      <field>
+        <source_value>Gambling</source_value>
+        <target_value>24</target_value>
+      </field>
+      <field>
+        <source_value>Harassment</source_value>
+        <target_value>25</target_value>
+      </field>
+      <field>
+        <source_value>Harbor Related Incidents</source_value>
+        <target_value>26</target_value>
+      </field>
+      <field>
+        <source_value>HOME INVASION</source_value>
+        <target_value>27</target_value>
+      </field>
+      <field>
+        <source_value>Homicide</source_value>
+        <target_value>28</target_value>
+      </field>
+      <field>
+        <source_value>HUMAN TRAFFICKING</source_value>
+        <target_value>29</target_value>
+      </field>
+      <field>
+        <source_value>HUMAN TRAFFICKING - INVOLUNTARY SERVITUDE</source_value>
+        <target_value>30</target_value>
+      </field>
+      <field>
+        <source_value>Investigate Person</source_value>
+        <target_value>31</target_value>
+      </field>
+      <field>
+        <source_value>Investigate Property</source_value>
+        <target_value>32</target_value>
+      </field>
+      <field>
+        <source_value>Landlord/Tenant Disputes</source_value>
+        <target_value>33</target_value>
+      </field>
+      <field>
+        <source_value>Larceny</source_value>
+        <target_value>34</target_value>
+      </field>
+      <field>
+        <source_value>Larceny From Motor Vehicle</source_value>
+        <target_value>35</target_value>
+      </field>
+      <field>
+        <source_value>License Plate Related Incidents</source_value>
+        <target_value>36</target_value>
+      </field>
+      <field>
+        <source_value>License Violation</source_value>
+        <target_value>37</target_value>
+      </field>
+      <field>
+        <source_value>Liquor Violation</source_value>
+        <target_value>38</target_value>
+      </field>
+      <field>
+        <source_value>Manslaughter</source_value>
+        <target_value>39</target_value>
+      </field>
+      <field>
+        <source_value>Medical Assistance</source_value>
+        <target_value>40</target_value>
+      </field>
+      <field>
+        <source_value>Missing Person Located</source_value>
+        <target_value>41</target_value>
+      </field>
+      <field>
+        <source_value>Missing Person Reported</source_value>
+        <target_value>42</target_value>
+      </field>
+      <field>
+        <source_value>Motor Vehicle Accident Response</source_value>
+        <target_value>43</target_value>
+      </field>
+      <field>
+        <source_value>Offenses Against Child / Family</source_value>
+        <target_value>44</target_value>
+      </field>
+      <field>
+        <source_value>Operating Under the Influence</source_value>
+        <target_value>45</target_value>
+      </field>
+      <field>
+        <source_value>Other</source_value>
+        <target_value>46</target_value>
+      </field>
+      <field>
+        <source_value>Other Burglary</source_value>
+        <target_value>47</target_value>
+      </field>
+      <field>
+        <source_value>Phone Call Complaints</source_value>
+        <target_value>48</target_value>
+      </field>
+      <field>
+        <source_value>Police Service Incidents</source_value>
+        <target_value>49</target_value>
+      </field>
+      <field>
+        <source_value>Prisoner Related Incidents</source_value>
+        <target_value>50</target_value>
+      </field>
+      <field>
+        <source_value>Property Found</source_value>
+        <target_value>51</target_value>
+      </field>
+      <field>
+        <source_value>Property Lost</source_value>
+        <target_value>52</target_value>
+      </field>
+      <field>
+        <source_value>Property Related Damage</source_value>
+        <target_value>53</target_value>
+      </field>
+      <field>
+        <source_value>Prostitution</source_value>
+        <target_value>54</target_value>
+      </field>
+      <field>
+        <source_value>Recovered Stolen Property</source_value>
+        <target_value>55</target_value>
+      </field>
+      <field>
+        <source_value>Residential Burglary</source_value>
+        <target_value>56</target_value>
+      </field>
+      <field>
+        <source_value>Restraining Order Violations</source_value>
+        <target_value>57</target_value>
+      </field>
+      <field>
+        <source_value>Robbery</source_value>
+        <target_value>58</target_value>
+      </field>
+      <field>
+        <source_value>Search Warrants</source_value>
+        <target_value>59</target_value>
+      </field>
+      <field>
+        <source_value>Service</source_value>
+        <target_value>60</target_value>
+      </field>
+      <field>
+        <source_value>Simple Assault</source_value>
+        <target_value>61</target_value>
+      </field>
+      <field>
+        <source_value>Towed</source_value>
+        <target_value>62</target_value>
+      </field>
+      <field>
+        <source_value>Vandalism</source_value>
+        <target_value>63</target_value>
+      </field>
+      <field>
+        <source_value>Verbal Disputes</source_value>
+        <target_value>64</target_value>
+      </field>
+      <field>
+        <source_value>Violations</source_value>
+        <target_value>65</target_value>
+      </field>
+      <field>
+        <source_value>Warrant Arrests</source_value>
+        <target_value>66</target_value>
+      </field>
+      <field>
+        <source_value>INVESTIGATE PERSON</source_value>
+        <target_value>31</target_value>
+      </field>
+    </fields>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>816</xloc>
+      <yloc>336</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Mapeo de Valores 2</name>
+    <type>ValueMapper</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <field_to_use>estacion</field_to_use>
+    <target_field>id_estacion</target_field>
+    <non_match_default />
+    <fields>
+      <field>
+        <source_value>ALB</source_value>
+        <target_value>1</target_value>
+      </field>
+      <field>
+        <source_value>AVE</source_value>
+        <target_value>2</target_value>
+      </field>
+      <field>
+        <source_value>DEC</source_value>
+        <target_value>3</target_value>
+      </field>
+      <field>
+        <source_value>DEL</source_value>
+        <target_value>4</target_value>
+      </field>
+      <field>
+        <source_value>ILL</source_value>
+        <target_value>5</target_value>
+      </field>
+      <field>
+        <source_value>RET</source_value>
+        <target_value>6</target_value>
+      </field>
+      <field>
+        <source_value>SAL</source_value>
+        <target_value>7</target_value>
+      </field>
+      <field>
+        <source_value>SAR</source_value>
+        <target_value>8</target_value>
+      </field>
+    </fields>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1088</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -555,8 +1083,75 @@ where DelitoTemporal.districto is not null
     <connection>Boston</connection>
     <schema />
     <table>DelitoFact</table>
+    <commit>10000</commit>
+    <truncate>Y</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field />
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field />
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field />
+    <fields>
+      <field>
+        <column_name>idTipoDelito</column_name>
+        <stream_name>idtipodelito</stream_name>
+      </field>
+      <field>
+        <column_name>idFecha</column_name>
+        <stream_name>idFecha</stream_name>
+      </field>
+      <field>
+        <column_name>iddistricto</column_name>
+        <stream_name>iddistricto</stream_name>
+      </field>
+      <field>
+        <column_name>idhora</column_name>
+        <stream_name>idhora</stream_name>
+      </field>
+      <field>
+        <column_name>idDiaSemana</column_name>
+        <stream_name>idDiaSemana</stream_name>
+      </field>
+      <field>
+        <column_name>delito</column_name>
+        <stream_name>delito</stream_name>
+      </field>
+    </fields>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1072</xloc>
+      <yloc>80</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Salida Tabla 2</name>
+    <type>TableOutput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection />
+    <schema />
+    <table>dw_pasaje_factf</table>
     <commit>1000</commit>
-    <truncate>N</truncate>
+    <truncate>Y</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
     <specify_fields>Y</specify_fields>
@@ -571,12 +1166,28 @@ where DelitoTemporal.districto is not null
     <return_field />
     <fields>
       <field>
-        <column_name>idhora</column_name>
-        <stream_name>idhora</stream_name>
+        <column_name>id_estacion_lookupF</column_name>
+        <stream_name>id_estacion</stream_name>
       </field>
       <field>
-        <column_name>hora</column_name>
-        <stream_name>HORA</stream_name>
+        <column_name>id_dia_lookupF</column_name>
+        <stream_name>id_dia</stream_name>
+      </field>
+      <field>
+        <column_name>id_rango_horario_lookupF</column_name>
+        <stream_name>idRangoHorario</stream_name>
+      </field>
+      <field>
+        <column_name>id_pago_lookupF</column_name>
+        <stream_name>id_pago</stream_name>
+      </field>
+      <field>
+        <column_name>id_vehiculo_lookupF</column_name>
+        <stream_name>id_vehiculo</stream_name>
+      </field>
+      <field>
+        <column_name>cantidad_de_pasos</column_name>
+        <stream_name>cantidad_pasos</stream_name>
       </field>
     </fields>
     <cluster_schema />
@@ -587,8 +1198,8 @@ where DelitoTemporal.districto is not null
       </output>
     </remotesteps>
     <GUI>
-      <xloc>432</xloc>
-      <yloc>96</yloc>
+      <xloc>1264</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

@@ -560,7 +560,7 @@
     <seqname>SEQ_</seqname>
     <use_counter>Y</use_counter>
     <counter_name />
-    <start_at>0</start_at>
+    <start_at>1</start_at>
     <increment_by>1</increment_by>
     <max_value>999999999</max_value>
     <cluster_schema />
@@ -899,7 +899,7 @@ ORDER BY DIASEMANA ASC</sql>
     <schema />
     <table>HoraLookup</table>
     <commit>1000</commit>
-    <truncate>N</truncate>
+    <truncate>Y</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
     <specify_fields>Y</specify_fields>
