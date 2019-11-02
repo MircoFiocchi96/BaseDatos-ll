@@ -2,15 +2,15 @@
   <Cube name="Crimenes" visible="false" cache="true" enabled="true">
     <Table name="DelitoFact">
     </Table>
-    <Dimension type="StandardDimension" visible="true" foreignKey="idTipoDelito" name="TipoDelito">
+    <Dimension type="StandardDimension" visible="true" foreignKey="idTipoDelito" highCardinality="false" name="TipoDelito">
       <Hierarchy name="Por Tipo Delito" visible="true" hasAll="true" allMemberName="Tipo Delitos - Todos" primaryKey="idTipoDelito">
-        <Table name="TipoDeDelitoLookup" alias="">
+        <Table name="TipoDeDelitoLookup">
         </Table>
-        <Level name="Tipo Delito" visible="true" table="TipoDeDelitoLookup" column="TipoDelito" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        <Level name="Tipo Delito" visible="true" table="TipoDeDelitoLookup" column="idTipoDelito" type="Integer" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
         </Level>
       </Hierarchy>
     </Dimension>
-    <Dimension type="StandardDimension" visible="true" foreignKey="idDiaSemana" name="Dia de la Semana">
+    <Dimension type="StandardDimension" visible="true" foreignKey="idDiaSemana" highCardinality="false" name="Dia de la Semana">
       <Hierarchy name="Por Dia de Semana" visible="true" hasAll="true" allMemberName="Por Dia de Semana - Todos" primaryKey="idDiaSemana">
         <Table name="DiaSemanaLookup">
         </Table>
@@ -18,31 +18,31 @@
         </Level>
       </Hierarchy>
     </Dimension>
-    <Dimension type="StandardDimension" visible="true" foreignKey="iddistricto" name="Districto">
+    <Dimension type="StandardDimension" visible="true" foreignKey="iddistricto" highCardinality="false" name="Districto">
       <Hierarchy name="Por Districto" visible="true" hasAll="true" allMemberName="Por Districto- Todos" primaryKey="iddistricto">
-        <Table name="DistrictoLookup" alias="">
+        <Table name="DistrictoLookup">
         </Table>
         <Level name="Districto" visible="true" table="DistrictoLookup" column="districto" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
         </Level>
       </Hierarchy>
     </Dimension>
-    <Dimension type="StandardDimension" visible="true" foreignKey="idhora" name="Hora">
+    <Dimension type="StandardDimension" visible="true" foreignKey="idhora" highCardinality="false" name="Hora">
       <Hierarchy name="Por Hora" visible="true" hasAll="true" allMemberName="Por Hora - Todo" primaryKey="idhora">
-        <Table name="HoraLookup" alias="">
+        <Table name="HoraLookup">
         </Table>
         <Level name="Hora" visible="true" table="HoraLookup" column="hora" type="Integer" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
         </Level>
       </Hierarchy>
     </Dimension>
-    <Dimension type="StandardDimension" visible="true" foreignKey="idFecha" name="Fecha">
+    <Dimension type="StandardDimension" visible="true" foreignKey="idFecha" highCardinality="false" name="Fecha">
       <Hierarchy name="Por Fecha" visible="true" hasAll="true" allMemberName="Por Fecha - Todo" primaryKey="idFecha">
-        <Table name="FechaLookup" alias="">
+        <Table name="FechaLookup">
         </Table>
         <Level name="Fecha" visible="true" table="FechaLookup" column="Fecha" type="Date" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
         </Level>
       </Hierarchy>
     </Dimension>
-    <Measure name="Delito" column="Delito" datatype="String" aggregator="distinct count" visible="true">
+    <Measure name="Delito" column="Delito" datatype="Integer" aggregator="sum" visible="true">
     </Measure>
   </Cube>
 </Schema>

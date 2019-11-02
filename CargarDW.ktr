@@ -492,53 +492,53 @@
   </connection>
   <order>
     <hop>
-      <from>Entrada Tabla</from>
+      <from>Entrada datos HORA</from>
       <to>Añadir secuencia</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Añadir secuencia</from>
-      <to>Salida Tabla</to>
+      <to>Salida Tabla Dimension Hora</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Entrada Tabla 2</from>
+      <from>Entrada datos Tipo Delito</from>
       <to>Añadir secuencia 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Añadir secuencia 2</from>
-      <to>Salida Tabla 2</to>
+      <to>Salida tabla dimension TIPO DELITO</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Entrada Tabla 2 2</from>
+      <from>Entrada datos Districto</from>
       <to>Añadir secuencia 2 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Añadir secuencia 2 2</from>
-      <to>Salida Tabla 2 2</to>
+      <to>Salida Tabla de Dimension DISTRICTO</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Entrada Tabla 2 3</from>
+      <from>Entrada datos Fecha</from>
       <to>Añadir secuencia 2 3</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Añadir secuencia 2 3</from>
-      <to>Salida Tabla 2 3</to>
+      <to>Salida Tabla Dimension FECHA</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Entrada Tabla 2 4</from>
+      <from>Entrada datos DIA SEMANA</from>
       <to>Añadir secuencia 2 4</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Añadir secuencia 2 4</from>
-      <to>Salida Tabla 2 4</to>
+      <to>Salida tabla dimension DIA SEMANA</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -713,7 +713,7 @@
     </GUI>
   </step>
   <step>
-    <name>Entrada Tabla</name>
+    <name>Entrada datos HORA</name>
     <type>TableInput</type>
     <description />
     <distribute>N</distribute>
@@ -747,7 +747,7 @@ order by CAST(HORA AS unsigned) ASC</sql>
     </GUI>
   </step>
   <step>
-    <name>Entrada Tabla 2</name>
+    <name>Entrada datos Tipo Delito</name>
     <type>TableInput</type>
     <description />
     <distribute>N</distribute>
@@ -781,7 +781,7 @@ order by tipoDelito asc</sql>
     </GUI>
   </step>
   <step>
-    <name>Entrada Tabla 2 2</name>
+    <name>Entrada datos Districto</name>
     <type>TableInput</type>
     <description />
     <distribute>N</distribute>
@@ -816,7 +816,7 @@ order by districto asc
     </GUI>
   </step>
   <step>
-    <name>Entrada Tabla 2 3</name>
+    <name>Entrada datos Fecha</name>
     <type>TableInput</type>
     <description />
     <distribute>N</distribute>
@@ -851,7 +851,7 @@ ORDER BY DATE_FORMAT(fecha, '%d/%m/%y') ASC
     </GUI>
   </step>
   <step>
-    <name>Entrada Tabla 2 4</name>
+    <name>Entrada datos DIA SEMANA</name>
     <type>TableInput</type>
     <description />
     <distribute>N</distribute>
@@ -885,7 +885,7 @@ ORDER BY DIASEMANA ASC</sql>
     </GUI>
   </step>
   <step>
-    <name>Salida Tabla</name>
+    <name>Salida Tabla Dimension Hora</name>
     <type>TableOutput</type>
     <description />
     <distribute>Y</distribute>
@@ -936,7 +936,7 @@ ORDER BY DIASEMANA ASC</sql>
     </GUI>
   </step>
   <step>
-    <name>Salida Tabla 2</name>
+    <name>Salida tabla dimension TIPO DELITO</name>
     <type>TableOutput</type>
     <description />
     <distribute>Y</distribute>
@@ -981,13 +981,13 @@ ORDER BY DIASEMANA ASC</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>400</xloc>
+      <xloc>464</xloc>
       <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Salida Tabla 2 2</name>
+    <name>Salida Tabla de Dimension DISTRICTO</name>
     <type>TableOutput</type>
     <description />
     <distribute>Y</distribute>
@@ -1032,13 +1032,13 @@ ORDER BY DIASEMANA ASC</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1088</xloc>
+      <xloc>1104</xloc>
       <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Salida Tabla 2 3</name>
+    <name>Salida Tabla Dimension FECHA</name>
     <type>TableOutput</type>
     <description />
     <distribute>Y</distribute>
@@ -1089,7 +1089,7 @@ ORDER BY DIASEMANA ASC</sql>
     </GUI>
   </step>
   <step>
-    <name>Salida Tabla 2 4</name>
+    <name>Salida tabla dimension DIA SEMANA</name>
     <type>TableOutput</type>
     <description />
     <distribute>Y</distribute>
