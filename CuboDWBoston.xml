@@ -6,7 +6,7 @@
       <Hierarchy name="Por Tipo Delito" visible="true" hasAll="true" allMemberName="Tipo Delitos - Todos" primaryKey="idTipoDelito">
         <Table name="TipoDeDelitoLookup">
         </Table>
-        <Level name="Tipo Delito" visible="true" table="TipoDeDelitoLookup" column="idTipoDelito" type="Integer" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        <Level name="Tipo Delito" visible="true" table="TipoDeDelitoLookup" column="TipoDelito" type="Integer" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
         </Level>
       </Hierarchy>
     </Dimension>
